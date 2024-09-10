@@ -89,8 +89,6 @@ app = FastAPI(lifespan=lifespan)
 # Configure CORS
 if IS_PRODUCTION:
     allowed_origins = [f"https://{ALLOWED_HOST}/"]
-    # temp will remove in next PR
-    allowed_origins = ["*"]
 else:
     allowed_origins = ["*"]
 
@@ -104,18 +102,31 @@ app.add_middleware(
 )
 
 
-# Middleware to limit requests to the allowed host
+# Middleware to check the origin of requests and block unauthorized access
 @app.middleware("http")
-async def request_limiter(request: Request, call_next):
-    # temp will remove in next PR
-    logger.warn(request.client.host)
-    if IS_PRODUCTION and (
-        (request.client.host != ALLOWED_HOST) or ("petry-ai" in request.client.host)
-    ):
-        logger.warning(f"Unauthorized access attempt from {request.client.host}")
-        return JSONResponse(status_code=401, content={"detail": "Unauthorized"})
+async def origin_check(request: Request, call_next):
+    if IS_PRODUCTION:
+        origin = request.headers.get("Origin")
+        referer = request.headers.get("Referer")
 
-    return await call_next(request)
+        allowed_origins = [ALLOWED_HOST]
+
+        if origin:
+            if origin not in allowed_origins:
+                logger.warning(f"Unauthorized access attempt from origin: {origin}")
+                return JSONResponse(status_code=401, content={"detail": "Unauthorized"})
+        elif referer:
+            if not any(
+                referer.startswith(f"https://{host}") for host in allowed_origins
+            ):
+                logger.warning(f"Unauthorized access attempt from referer: {referer}")
+                return JSONResponse(status_code=401, content={"detail": "Unauthorized"})
+        else:
+            logger.warning("No Origin or Referer header present in the request")
+            return JSONResponse(status_code=401, content={"detail": "Unauthorized"})
+
+    response = await call_next(request)
+    return response
 
 
 # Middleware to add the session ID to the request state
