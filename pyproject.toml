@@ -1,0 +1,5 @@
+[project]
+name = "petry-tech-examples-py"
+version = "1.0.0"
+description = "Tangible tech examples for the O&G industry with Python"
+readme = "README.md"
