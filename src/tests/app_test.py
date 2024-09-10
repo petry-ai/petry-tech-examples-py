@@ -2,7 +2,7 @@ import pytest
 from fastapi import Request, Response
 from fastapi.testclient import TestClient
 from unittest.mock import patch, MagicMock, AsyncMock
-from app import app, lifespan, request_limiter, add_session_id
+from app import app, lifespan, origin_check, add_session_id
 from models import Sessions
 
 
@@ -33,7 +33,7 @@ async def test_lifespan(test_app):
 
 
 @pytest.mark.asyncio
-async def test_request_limiter_production():
+async def test_origin_check_production():
     """
     Test the request_limiter middleware in production mode.
     This ensures that requests from unauthorized hosts are rejected.
@@ -53,7 +53,7 @@ async def test_request_limiter_production():
             return mock_response
 
         # Call the request_limiter middleware
-        response = await request_limiter(mock_request, mock_call_next)
+        response = await origin_check(mock_request, mock_call_next)
 
         # Assert that the response status code is 401 (Unauthorized)
         assert response.status_code == 401
