@@ -1,0 +1,12 @@
+black==24.8.0
+fastapi==0.112.1
+pandas==2.2.2
+openai==1.41.0
+openpyxl==3.1.5
+pylint==3.2.6
+pytest==8.3.2
+pytest-asyncio==0.24.0
+python-dotenv==1.0.1
+python-multipart==0.0.9
+structlog==24.4.0
+uvicorn==0.30.6

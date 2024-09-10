@@ -1,0 +1,10 @@
+services:
+  api:
+    image: ghcr.io/petry-ai/petry-tech-examples-py:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - "~/logs/petry-tech-examples-py.log:/app/app.log"
+    deploy:
+      restart_policy:
+        condition: on-failure
