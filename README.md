@@ -5,8 +5,8 @@ We're building the Excel Copilot for the Oil & Gas industry with AI at its core.
 
 We understand that there is a lot of noise within our industry around "tech"/"ai".
 
-This focus of this open source repo is to show case real tangible tech examples that can be used within our industry.
-The code is fully open source so you can clone it and try it out for yourself.
+The focus of this repo is to show case real tangible tech examples that can be used in our industry.
+The code is fully open source so you can clone it and try it out yourself.
 
 You can also try out any of the tech examples on our site at https://petry.tech/newsletter through an interactive UI.
 Each example has an associated newsletter for a detailed walk through and explanation.
