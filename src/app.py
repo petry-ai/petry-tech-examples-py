@@ -109,8 +109,6 @@ async def origin_check(request: Request, call_next):
         origin = request.headers.get("Origin")
         referer = request.headers.get("Referer")
 
-        allowed_origins = [ALLOWED_HOST]
-
         if origin:
             if origin not in allowed_origins:
                 logger.warning(f"Unauthorized access attempt from origin: {origin}")
