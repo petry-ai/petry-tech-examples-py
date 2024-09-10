@@ -88,7 +88,7 @@ app = FastAPI(lifespan=lifespan)
 
 # Configure CORS
 if IS_PRODUCTION:
-    allowed_origins = [f"https://{ALLOWED_HOST}"]
+    allowed_origins = [f"https://{ALLOWED_HOST}/"]
 else:
     allowed_origins = ["*"]
 
