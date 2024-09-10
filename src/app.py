@@ -89,6 +89,7 @@ app = FastAPI(lifespan=lifespan)
 # Configure CORS
 if IS_PRODUCTION:
     allowed_origins = [f"https://{ALLOWED_HOST}/"]
+    # temp will remove in next PR
     allowed_origins = ["*"]
 else:
     allowed_origins = ["*"]
@@ -106,6 +107,7 @@ app.add_middleware(
 # Middleware to limit requests to the allowed host
 @app.middleware("http")
 async def request_limiter(request: Request, call_next):
+    # temp will remove in next PR
     logger.warn(request.client.host)
     if IS_PRODUCTION and (
         (request.client.host != ALLOWED_HOST) or ("petry-ai" in request.client.host)
