@@ -14,13 +14,13 @@ jobs:
       contents: read
       packages: write
     env:
-      ORG: petry-ai
+      ORG: petry-tech
       IMAGE: petry-tech-examples-py
     steps:
       - name: Checkout petry-tech-examples-py
         uses: actions/checkout@v3
         with:
-          repository: "petry-ai/petry-tech-examples-py"
+          repository: "petry-tech/petry-tech-examples-py"
           ssh-key: ${{ secrets.PETRY_TECH_EXAMPLES_PY_SSH }}
 
       - name: Set up Python
