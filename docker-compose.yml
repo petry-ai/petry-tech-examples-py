@@ -1,6 +1,6 @@
 services:
   api:
-    image: ghcr.io/petry-ai/petry-tech-examples-py:latest
+    image: ghcr.io/petry-tech/petry-tech-examples-py:latest
     ports:
       - "8080:8080"
     volumes:
